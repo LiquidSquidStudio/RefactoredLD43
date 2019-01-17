@@ -34,9 +34,9 @@ public class PeasantStats : MonoBehaviour
 
         if (_randomizeStats)
             for (int i = 0; i < _resourceBonuses.Length; i++)
-                _resourceBonuses[i] = 1;
+                _resourceBonuses[i] = 1 + Random.Range(-_bonusStdDeviation, _bonusStdDeviation);
         else
             for (int i = 0; i < _resourceBonuses.Length; i++)
-                _resourceBonuses[i] = 1 + Random.Range(-_bonusStdDeviation, _bonusStdDeviation);
+                _resourceBonuses[i] = 1;
     }
 }

@@ -1,23 +1,24 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class ResourceBuilding : MonoBehaviour
 {
     [SerializeField]
     string _buildingName;
-    Collider2D _collider;
+    BoxCollider2D _collider;
 
     [HideInInspector]
     public ResourceEvent resourceEvent;
 
     void Awake()
     {
-        _collider = GetComponent<Collider2D>();
+        _collider = GetComponent<BoxCollider2D>();
         _collider.isTrigger = true;
     }
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Collider triggered");
         var stats = other.GetComponent<PeasantStats>();
 
         if (!stats)

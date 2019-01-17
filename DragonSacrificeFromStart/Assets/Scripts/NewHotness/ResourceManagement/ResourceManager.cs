@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 
 public enum ResourceType {
     Wood,
@@ -60,6 +58,8 @@ public class ResourceManager : MonoBehaviour
     int _food;
     int _weapons;
 
+    ResourceBuilding[] buildings;
+
     #region Design Fields
     [SerializeField]
     float foodPerPeasant = 0.5f;
@@ -77,6 +77,7 @@ public class ResourceManager : MonoBehaviour
     void Start()
     {
         InitializeResources();
+        AddListenersToBuildings();
     }
     
     #region Saving and Loading Resources Methods on SceneChange
@@ -109,16 +110,23 @@ public class ResourceManager : MonoBehaviour
     }
     #endregion
 
-    // Add listener to building that's clickable
     void AddListenersToBuildings()
     {
-        
+        buildings = FindObjectsOfType<ResourceBuilding>();
+
+        foreach (var building in buildings)
+        {
+            building.resourceEvent.RemoveListener(AddToResource);
+            building.resourceEvent.AddListener(AddToResource);
+        }
     }
 
     void AddToResource(ResourceChange rc)
     {
         var type = rc.resource;
         var nAdded = rc.amount;
+
+        Debug.Log("Added " + nAdded + " " + type);
 
         switch (type)
         {
