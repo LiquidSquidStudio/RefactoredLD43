@@ -78,13 +78,14 @@ public class ResourceManager : MonoBehaviour
     {
         InitializeResources();
     }
+    
+    #region Saving and Loading Resources Methods on SceneChange
 
     private void OnDestroy()
     {
         SaveResourceState();
     }
 
-    #region Saving and Loading  Resources Methods on SceneChange
     void InitializeResources()
     {
         ResourceState rs = FindObjectOfType<ResourceState>();
@@ -111,11 +112,14 @@ public class ResourceManager : MonoBehaviour
     // Add listener to building that's clickable
     void AddListenersToBuildings()
     {
-
+        
     }
 
-    public void AddToResource(ResourceType type, int nAdded)
+    void AddToResource(ResourceChange rc)
     {
+        var type = rc.resource;
+        var nAdded = rc.amount;
+
         switch (type)
         {
             case ResourceType.Wood:

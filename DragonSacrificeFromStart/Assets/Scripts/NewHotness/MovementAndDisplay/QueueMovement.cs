@@ -10,10 +10,14 @@ public class QueueMovement: MonoBehaviour
     Queue<Vector3> pathPoints = new Queue<Vector3>();
 
     // Need to test the floats
-    [HideInInspector]
-    public float moveSpeed = 20f;
-    [HideInInspector]
-    public float reachedLocRadius = 5f;
+    float _moveSpeed = 20f;
+    float _reachedLocRadius = 5f;
+
+    void Awake()
+    {
+        if (GetComponent<PeasantStats>())
+            InitializeMoveStats();
+    }
 
     void Update()
     {
@@ -26,8 +30,8 @@ public class QueueMovement: MonoBehaviour
         MoveThroughPoints();
     }
 
-    // Public Methods
-    #region
+    #region Public Methods
+
     public void AddToQueue(Vector3 point)
     {
         pathPoints.Enqueue(point);
@@ -37,7 +41,10 @@ public class QueueMovement: MonoBehaviour
     {
         pathPoints.Clear();
     }
+
     #endregion
+
+    #region Private Method
 
     void MoveThroughPoints()
     {
@@ -50,11 +57,25 @@ public class QueueMovement: MonoBehaviour
         }
 
         Vector3 dir = (currentDestination - transform.position).normalized;
-        transform.Translate(dir * moveSpeed * Time.deltaTime);
+        transform.Translate(dir * _moveSpeed * Time.deltaTime);
     }
-    
-    // Helper Methods
-    #region 
+
+    #endregion
+
+    #region Constructor
+
+    void InitializeMoveStats()
+    {
+        PeasantStats ps = GetComponent<PeasantStats>();
+
+        _moveSpeed = ps.moveSpeed;
+        _reachedLocRadius = ps.reachLocRadius;
+    }
+
+    #endregion
+
+    #region Helper Methods
+
     bool UpdateSetDestination(Vector3 currentDestination)
     {
         if (pathPoints.Count == 0)
@@ -63,7 +84,7 @@ public class QueueMovement: MonoBehaviour
             return false;
         }
 
-        if (RemainingDistance(currentDestination) < reachedLocRadius)
+        if (RemainingDistance(currentDestination) < _reachedLocRadius)
             return true;
 
         return false;
@@ -79,5 +100,6 @@ public class QueueMovement: MonoBehaviour
         float distance = (target - transform.position).magnitude;
         return distance;
     }
+
     #endregion
 }

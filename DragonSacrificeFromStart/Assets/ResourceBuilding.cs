@@ -1,27 +1,41 @@
 ﻿using UnityEngine;
 
-public class ResourceBuilding : Building
+[RequireComponent(typeof(Collider2D))]
+public class ResourceBuilding : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    [SerializeField]
+    string _buildingName;
+    Collider2D _collider;
+
+    [HideInInspector]
+    public ResourceEvent resourceEvent;
+
+    void Awake()
+    {
+        _collider = GetComponent<Collider2D>();
+        _collider.isTrigger = true;
+    }
+
+    void OnTriggerEnter(Collider other)
     {
         var stats = other.GetComponent<PeasantStats>();
 
         if (!stats)
             return;
+
+        UseBuilding(stats);
     }
 
-    //void InitializeResourceEffects()
-    //{
-
-    //}
-
-    public override void BuildingUsed()
+    void UseBuilding(PeasantStats stats)
     {
         BuildingAffect[] affects = GetComponents<BuildingAffect>();
         foreach (BuildingAffect affect in affects)
         {
-            affect.Affect();
+            var rc = affect.Affect();
+
+            rc.amount = Mathf.CeilToInt(rc.amount * stats.ResourceBonus((int)rc.resource));
+
+            resourceEvent.Invoke(rc);
         }
     }
-
 }
