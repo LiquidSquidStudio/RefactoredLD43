@@ -9,7 +9,6 @@ public class QueueMovement: MonoBehaviour
     [SerializeField]
     Queue<Vector3> pathPoints = new Queue<Vector3>();
 
-    // Need to test the floats
     float _moveSpeed = 20f;
     float _reachedLocRadius = 5f;
 

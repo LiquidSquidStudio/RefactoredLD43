@@ -4,9 +4,9 @@
 public class BuildingAffect : MonoBehaviour
 {
     [SerializeField]
-    ResourceType resource;
+    ResourceType resource = 0;
     [SerializeField]
-    int amount;
+    int amount = 0;
 
     public ResourceChange Affect()
     {

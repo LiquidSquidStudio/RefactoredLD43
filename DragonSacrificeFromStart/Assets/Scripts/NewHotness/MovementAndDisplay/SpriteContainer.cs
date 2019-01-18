@@ -3,7 +3,7 @@
 public class SpriteContainer : MonoBehaviour
 {
     [SerializeField]
-    Sprite[] sprites;
+    Sprite[] sprites = null;
 
     public int SCNumSprites()
     {

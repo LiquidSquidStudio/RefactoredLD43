@@ -826,8 +826,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ca6c20e281bbd248ae022f4d003a8ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 20
-  _reachedLocationRadius: 5
   movedPeasants:
     m_PersistentCalls:
       m_Calls:
@@ -845,6 +843,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   paths: []
+  _maxDelayTime: 0.3
 --- !u!114 &541788187
 MonoBehaviour:
   m_ObjectHideFlags: 0

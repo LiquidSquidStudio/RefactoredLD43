@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class CrowdCreator : MonoBehaviour
 {
-    public List<GameObject> peasants;
+    public List<Peasant> peasants;
 
     [Range(0, 200)]
     public int nPeasants = 100;
 
     [SerializeField]
-    Transform crowdLoc;
+    Transform crowdLoc = null;
     [SerializeField]
-    GameObject peasantPrefab;
+    GameObject peasantPrefab = null;
 
     void Awake()
     {
@@ -30,7 +30,7 @@ public class CrowdCreator : MonoBehaviour
     void CreatePeasant()
     {
         var peasant = Instantiate(peasantPrefab, crowdLoc.position,this.transform.rotation,this.gameObject.transform);
-        peasants.Add(peasant);
+        peasants.Add(peasant.GetComponent<Peasant>());
     }
 
     #region Helpers

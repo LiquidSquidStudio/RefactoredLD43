@@ -18,7 +18,7 @@ public class Peasant : MonoBehaviour
     public float ReachedLocationRadius = 5;
 
     float _distance;
-    Vector3 _target;
+    Vector3 _target = Vector3.zero;
     //
     public CrowdController Controller { get; set; }
 
